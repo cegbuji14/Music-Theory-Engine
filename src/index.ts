@@ -1,5 +1,6 @@
 import { Key } from "./key";
 import { detectChordQuality } from "./key"
+import { nameChord } from "./key";
 
 const cKey = new Key("C", 0);
 console.log("Key:", cKey.name);
@@ -33,6 +34,9 @@ console.log("Chord quality:", detectChordQuality(cMajor));
 const g7 = cKey.getChordFromDegree(4, 4)!;
 console.log("Chord notes:", g7);
 console.log("Chord quality:", detectChordQuality(g7));
+
+console.log(nameChord(g7)); // G7
+console.log(nameChord(cMajor)); // Cmaj
 
 
 

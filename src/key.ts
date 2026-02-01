@@ -157,5 +157,12 @@ const NOTE_SEMITONES: { [note: string]: number } = {
   
     return null;
   }
+
+  export function nameChord(notes: string[]): string | null {
+    const quality = detectChordQuality(notes);
+    if (!quality) return null;
+    return `${notes[0]}${quality}`;
+  }
+  
   
   
