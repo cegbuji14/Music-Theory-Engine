@@ -6,7 +6,7 @@ A TypeScript-based music theory engine modeling the circle of fifths, key relati
 - Circle-of-fifths key modeling
 - Relative major/minor calculation
 - Diatonic major scale generation + 7th chords
-- Detect chord Quality/Tonality (minor/major/diminshed)
+- Detect chord quality/tonality (minor/major/diminshed)
 - Builds extended chords
 
 ## Tech Stack
