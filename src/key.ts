@@ -54,11 +54,19 @@ const NOTE_SEMITONES: { [note: string]: number } = {
   ];//Diatonic 7th extensions
   
 
-  const TRIAD_INTERVALS = [0, 2, 4];   // 1–3–5 
-  const SEVENTH_INTERVALS = [0, 2, 4, 6]; // 1–3–5–7
+  const CHORD_PATTERNS: Record<string, number[]> = {
+    "maj": [0, 4, 7],
+    "min": [0, 3, 7],
+    "dim": [0, 3, 6],
+    "aug": [0, 4, 8],
+  
+    "maj7": [0, 4, 7, 11],
+    "7": [0, 4, 7, 10],
+    "min7": [0, 3, 7, 10],
+    "ø7": [0, 3, 6, 10],
+  };//Half steps from root note
+  
 
-  
-  
   export class Key {
     name: string;
     position: number; // Position on circle of fifths relative to C (C=0)
@@ -122,6 +130,32 @@ const NOTE_SEMITONES: { [note: string]: number } = {
       });//gives extensions for chords (Chord Size) Triads, 7, 9, 11, and 13 chords
     }//[3 (triad), 4 (7th), 5 (9th), 6 (11th), 7 (13th)
     
-    
   }
+
+  export function detectChordQuality(notes: string[]): string | null {
+    if (notes.length < 3) return null;
+  
+    const root = notes[0];
+    const rootSemitone = NOTE_SEMITONES[root];
+    if (rootSemitone === undefined) return null;
+  
+    const intervals = notes
+      .map(note => {
+        const semitone = NOTE_SEMITONES[note];
+        return (semitone - rootSemitone + 12) % 12;
+      })
+      .sort((a, b) => a - b);
+  
+    for (const [quality, pattern] of Object.entries(CHORD_PATTERNS)) {
+      if (
+        pattern.length === intervals.length &&
+        pattern.every((val, i) => val === intervals[i])
+      ) {
+        return quality;
+      }
+    }
+  
+    return null;
+  }
+  
   
