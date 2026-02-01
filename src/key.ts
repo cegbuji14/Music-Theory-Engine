@@ -32,6 +32,17 @@ const NOTE_SEMITONES: { [note: string]: number } = {
     "A#",
     "B",
   ];//For notes like Db and C# that sound the same but have differernt names
+
+  const MAJOR_KEY_CHORD_QUALITIES = [
+    "maj",
+    "min",
+    "min",
+    "maj",
+    "maj",
+    "min",
+    "dim",
+  ];//Diatonid Chords
+  
   
   export class Key {
     name: string;
@@ -64,5 +75,18 @@ const NOTE_SEMITONES: { [note: string]: number } = {
         return SEMITONE_NOTES_SHARP[noteSemitone];
       });
     }
+    
+    getDiatonicChords(): string[] | null {
+      const scale = this.getDiatonicScale();
+      if (!scale) return null;
+    
+      const chordQualities = ["maj", "min", "min", "maj", "maj", "min", "dim"];
+    
+      return scale.map((note, index) => {
+        const quality = chordQualities[index];
+        return `${note}${quality}`;
+      });
+    }
+    
   }
   
