@@ -41,7 +41,22 @@ const NOTE_SEMITONES: { [note: string]: number } = {
     "maj",
     "min",
     "dim",
-  ];//Diatonid Chords
+  ];//Diatonic Chords
+
+  const MAJOR_KEY_7TH_QUALITIES = [
+    "maj7",
+    "min7",
+    "min7",
+    "maj7",
+    "7",
+    "min7",
+    "ø7",
+  ];//Diatonic 7th extensions
+  
+
+  const TRIAD_INTERVALS = [0, 2, 4];   // 1–3–5 
+  const SEVENTH_INTERVALS = [0, 2, 4, 6]; // 1–3–5–7
+
   
   
   export class Key {
@@ -75,7 +90,7 @@ const NOTE_SEMITONES: { [note: string]: number } = {
         return SEMITONE_NOTES_SHARP[noteSemitone];
       });
     }
-    
+
     getDiatonicChords(): string[] | null {
       const scale = this.getDiatonicScale();
       if (!scale) return null;
@@ -87,6 +102,26 @@ const NOTE_SEMITONES: { [note: string]: number } = {
         return `${note}${quality}`;
       });
     }
+
+    getDiatonicSeventhChords(): string[] | null {
+      const scale = this.getDiatonicScale();
+      if (!scale) return null;
+    
+      return scale.map((note, index) => {
+        return `${note}${MAJOR_KEY_7TH_QUALITIES[index]}`;
+      });
+    }    
+
+    getChordFromDegree(degree: number, chordSize: 3 | 4 | 5 | 6 | 7 = 3): string[] | null {
+      const scale = this.getDiatonicScale();
+      if (!scale) return null;
+    
+      return Array.from({ length: chordSize }, (_, i) => {
+        const scaleIndex = (degree + i * 2) % scale.length;
+        return scale[scaleIndex];
+      });//gives extensions for chords (Chord Size) Triads, 7, 9, 11, and 13 chords
+    }//[3 (triad), 4 (7th), 5 (9th), 6 (11th), 7 (13th)
+    
     
   }
   
