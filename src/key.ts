@@ -55,15 +55,19 @@ const NOTE_SEMITONES: { [note: string]: number } = {
   
 
   const CHORD_PATTERNS: Record<string, number[]> = {
-    "maj": [0, 4, 7],
+    "maj": [0, 4, 7],//triads
     "min": [0, 3, 7],
     "dim": [0, 3, 6],
     "aug": [0, 4, 8],
   
-    "maj7": [0, 4, 7, 11],
+    "maj7": [0, 4, 7, 11],//7th chords
     "7": [0, 4, 7, 10],
     "min7": [0, 3, 7, 10],
     "ø7": [0, 3, 6, 10],
+
+    "9":    [0, 4, 7, 10, 14],//higher extensiosn
+    "11":   [0, 4, 7, 10, 14, 17],
+    "13":   [0, 4, 7, 10, 14, 17, 21],
   };//Half steps from root note
   
 
@@ -131,37 +135,64 @@ const NOTE_SEMITONES: { [note: string]: number } = {
     }//[3 (triad), 4 (7th), 5 (9th), 6 (11th), 7 (13th)
     
   }
+  
+  type DetectedChord = {
+    root: string;
+    quality: string;
+  };
+  export function nameDetectedChord(chord: DetectedChord): string {
+    return `${chord.root}${chord.quality}`;
+  }
+  
+  
+  export function getChordIntervalsFromDegree(key: Key, degree: number, chordSize: number
+  ): number[] | null {
+    const scale = key.getDiatonicScale();
+    if (!scale) return null;
+  
+    const rootNote = scale[degree];
+    const rootSemitone = NOTE_SEMITONES[rootNote];
+  
+    let octave = 0;
+  
+    return Array.from({ length: chordSize }, (_, i) => {
+      const scaleStep = degree + i * 2;
+      if (scaleStep >= scale.length) octave = Math.floor(scaleStep / scale.length);
+  
+      const note = scale[scaleStep % scale.length];
+      const semitone = NOTE_SEMITONES[note];
+  
+      return semitone - rootSemitone + octave * 12;
+    });//tracks octaves so extensions can be named
+  }
 
-  export function detectChordQuality(notes: string[]): string | null {
-    if (notes.length < 3) return null;
-  
-    const root = notes[0];
-    const rootSemitone = NOTE_SEMITONES[root];
-    if (rootSemitone === undefined) return null;
-  
-    const intervals = notes
-      .map(note => {
-        const semitone = NOTE_SEMITONES[note];
-        return (semitone - rootSemitone + 12) % 12;
-      })
-      .sort((a, b) => a - b);
+  function detectChordFromIntervals(intervals: number[]): string | null {
+    const sorted = [...intervals].sort((a, b) => a - b);
   
     for (const [quality, pattern] of Object.entries(CHORD_PATTERNS)) {
       if (
-        pattern.length === intervals.length &&
-        pattern.every((val, i) => val === intervals[i])
+        pattern.length === sorted.length &&
+        pattern.every((v, i) => v === sorted[i])
       ) {
         return quality;
       }
     }
-  
     return null;
   }
-
-  export function nameChord(notes: string[]): string | null {
-    const quality = detectChordQuality(notes);
+  
+  export function detectGeneratedChord(
+    key: Key,
+    degree: number,
+    chordSize: number
+  ): DetectedChord | null {
+    const intervals = getChordIntervalsFromDegree(key, degree, chordSize);
+    if (!intervals) return null;
+  
+    const quality = detectChordFromIntervals(intervals);
     if (!quality) return null;
-    return `${notes[0]}${quality}`;
+  
+    const root = key.getDiatonicScale()![degree];
+    return { root, quality };
   }
   
   
