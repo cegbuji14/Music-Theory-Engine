@@ -194,6 +194,24 @@ const NOTE_SEMITONES: { [note: string]: number } = {
     const root = key.getDiatonicScale()![degree];
     return { root, quality };
   }
+
+  export function notesToIntervals(notes: string[]): number[] | null {
+    if (notes.length === 0) return null;
+  
+    const root = notes[0];
+    const rootSemitone = NOTE_SEMITONES[root];
+    if (rootSemitone === undefined) return null;
+  
+    const intervals = notes.map(note => {
+      const semitone = NOTE_SEMITONES[note];
+      if (semitone === undefined) return null;
+      return (semitone - rootSemitone + 12) % 12;
+    });
+  
+    if (intervals.includes(null)) return null;
+  
+    return intervals as number[];
+  }//eventually want the ability to form chords from raw notes
   
   
   

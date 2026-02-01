@@ -1,6 +1,7 @@
 import { Key } from "./key";
 import { nameDetectedChord } from "./key";
 import { detectGeneratedChord } from "./key";
+import { notesToIntervals } from "./key";
 
 /*
 const cKey = new Key("C", 0);
@@ -52,6 +53,20 @@ if (chord) {
   console.log(nameDetectedChord(chord)); // G13
 }
 
+//Note to interval test
+const testChords = [
+    { notes: ["C", "E", "G"], expected: [0, 4, 7] },        // C major triad
+    { notes: ["D", "F", "A"], expected: [0, 3, 7] },        // D minor triad
+    { notes: ["G", "B", "D", "F"], expected: [0, 4, 7, 10] }, // G7 chord
+    { notes: ["A", "C#", "E", "G"], expected: [0, 4, 7, 10] }, // A7 chord
+  ];
+  
+  testChords.forEach(({ notes, expected }) => {
+    const intervals = notesToIntervals(notes);
+    console.log(`Notes: ${notes.join(", ")} → Intervals: ${intervals}`);
+    console.log(`Test passed?`, JSON.stringify(intervals) === JSON.stringify(expected));
+  });
+  
 
 
 
