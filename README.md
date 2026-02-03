@@ -8,10 +8,29 @@ A TypeScript-based music theory engine modeling the circle of fifths, key relati
 - Diatonic major scale generation + 7th chords
 - Detect chord quality/tonality (minor/major/diminshed)
 - Builds extended chords
+- Modes
 
 ## Tech Stack
 - Node.js
 - TypeScript
+- SVG
+- React
+
+## Build and Run (React)
+/CircOfFifths/frontend/MusicTheoryEngine
+
+npm install
+
+npm run dev
+
+## Build and Run (Node.js Backend)
+/CircOfFifths/
+
+edit dist/index.js as needed
+
+npx tsc
+
+node index.js
 
 ## Future Plans
 - Inversion handling
