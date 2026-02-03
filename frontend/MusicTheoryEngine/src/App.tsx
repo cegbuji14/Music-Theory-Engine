@@ -1,4 +1,6 @@
+import React from "react";
 import CircleOfFifths from "./components/CircleOfFifths";
+
 
 function App() {
   return (
