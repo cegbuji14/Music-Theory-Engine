@@ -70,6 +70,16 @@ const NOTE_SEMITONES: { [note: string]: number } = {
     "13":   [0, 4, 7, 10, 14, 17, 21],
   };//Half steps from root note
   
+  export const MODES = [
+    "Ionian",//0
+    "Dorian",//1
+    "Phrygian",//2
+    "Lydian",//3
+    "Mixolydian",//4
+    "Aeolian",//5
+    "Locrian",//6
+  ] as const;//Modes of the major scale
+  
 
   export class Key {
     name: string;
@@ -133,6 +143,18 @@ const NOTE_SEMITONES: { [note: string]: number } = {
         return scale[scaleIndex];
       });//gives extensions for chords (Chord Size) Triads, 7, 9, 11, and 13 chords
     }//[3 (triad), 4 (7th), 5 (9th), 6 (11th), 7 (13th)
+
+    getMode(modeIndex: number): string[] | null {
+      const scale = this.getDiatonicScale();
+      if (!scale) return null;
+    
+      if (modeIndex < 0 || modeIndex > 6) return null;
+    
+      return scale
+        .slice(modeIndex)
+        .concat(scale.slice(0, modeIndex));
+    }
+    
     
   }
   

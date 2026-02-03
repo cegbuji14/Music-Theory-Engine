@@ -30,7 +30,7 @@ console.log("G9: ", cKey.getChordFromDegree(4, 5)); // G9
 console.log("G13: ", cKey.getChordFromDegree(4, 7)); // G13
 */
 
-const cKey = new Key("C", 0);
+/*const cKey = new Key("C", 0);
 const cMajor = cKey.getChordFromDegree(0, 3)!;
 console.log("Chord notes:", cMajor);
 
@@ -66,6 +66,15 @@ const testChords = [
     console.log(`Notes: ${notes.join(", ")} → Intervals: ${intervals}`);
     console.log(`Test passed?`, JSON.stringify(intervals) === JSON.stringify(expected));
   });
+*/
+  const cKey = new Key("C", 0);
+
+console.log("Ionian mode of C:", cKey.getMode(0));      // C D E F G A B
+console.log("Dorian mode of C:", cKey.getMode(1));      // D E F G A B C
+console.log("Phrygian mode of C:", cKey.getMode(2));    // E F G A B C D
+console.log("Mixolydian mode of C:", cKey.getMode(4));  // G A B C D E F
+console.log("Aeolian mode of C:", cKey.getMode(5));     // A B C D E F G
+
   
 
 
