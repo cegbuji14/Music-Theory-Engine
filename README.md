@@ -24,9 +24,10 @@ npm install
 npm run dev
 
 ## Build and Run (Node.js Backend)
-/CircOfFifths/
+/CircOfFifths/backend
 
-edit dist/index.js as needed
+- Key functions are in /src/key.ts.
+- edit dist/index.js as needed
 
 npx tsc
 
@@ -34,7 +35,7 @@ node index.js
 
 ## Future Plans
 - Inversion handling
-- More advanced theory (i.e. modes, modulation, tritone substitutions, slash chords, etc.)
+- More advanced theory (i.e. modulation, tritone substitutions, slash chords, etc.)
 - REST API for theory queries
 - Interactive frontend visualization
 - Audio and MIDI integration
