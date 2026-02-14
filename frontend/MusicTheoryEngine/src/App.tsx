@@ -9,13 +9,13 @@ function App() {
         height: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
         margin: 0,
         padding: 0,
+        backgroundColor: "#4a50a0", // full-page blue
       }}
     >
-      <h1>Circle of Fifths</h1>
+      <h1 style={{ margin: 0, padding: "24px 0", textAlign: "center" }} >Circle of Fifths</h1>
       <CircleOfFifths />
     </div>
   );
