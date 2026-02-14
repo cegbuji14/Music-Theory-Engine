@@ -2,6 +2,14 @@
 
 A TypeScript-based music theory engine modeling the circle of fifths, key relationships, diatonic scales, and harmonic structure.
 
+## Screenshots
+
+### F Major Example
+![F Major Example](frontend/MusicTheoryEngine/public/screenshots/fmaj.png)
+
+### E Phrygian Example
+![E Phrygian Example](frontend/MusicTheoryEngine/public/screenshots/ephrygian.png)
+
 ## Features
 - Circle-of-fifths key modeling
 - Relative major/minor calculation
@@ -17,14 +25,26 @@ A TypeScript-based music theory engine modeling the circle of fifths, key relati
 - React
 
 ## Build and Run (React)
-/CircOfFifths/frontend/MusicTheoryEngine
+Run
+
+git clone https://github.com/cegbuji14/Music-Theory-Engine.git
+
+cd Music-Theory-Engine
+
+cd frontend/MusicTheoryEngine
 
 npm install
 
 npm run dev
 
 ## Build and Run (Node.js Backend)
-/CircOfFifths/backend
+Run
+
+git clone https://github.com/cegbuji14/Music-Theory-Engine.git
+
+cd Music-Theory-Engine
+
+cd backend
 
 - Key functions are in /src/key.ts.
 - edit dist/index.js as needed
@@ -37,7 +57,6 @@ node index.js
 - Inversion handling
 - More advanced theory (i.e. modulation, tritone substitutions, slash chords, etc.)
 - REST API for theory queries
-- Interactive frontend visualization
 - Audio and MIDI integration
 
 ## Motivation
